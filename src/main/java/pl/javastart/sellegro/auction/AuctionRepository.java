@@ -11,4 +11,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     @Query(value= "SELECT * FROM sellegro.auction order by price desc limit :number", nativeQuery = true)
     List<Auction> findMostExpensiveTop(@Param("number") int number); // Trzeba sparametryzować
 
+    @Query(value ="SELECT * FROM sellegro.auction order by :column desc ;", nativeQuery = true)
+    List<Auction> findAllOrderedBy(@Param("column") String column);
 }

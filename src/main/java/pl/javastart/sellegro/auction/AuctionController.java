@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Random;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class AuctionController {
 
     private AuctionRepository auctionRepository;
 
+
     public AuctionController(AuctionRepository auctionRepository) {
         this.auctionRepository = auctionRepository;
     }
@@ -19,6 +21,7 @@ public class AuctionController {
     @GetMapping("/auctions")
     public String auctions(Model model,
                            @RequestParam(required = false) String sort) {
+
 
 
         model.addAttribute("auctions", auctionRepository.findAll());

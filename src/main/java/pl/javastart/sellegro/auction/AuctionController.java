@@ -31,13 +31,19 @@ public class AuctionController {
 
             auctions = auctionRepository.findAll(columnSort);
 
-        } else {
+        } else{
             auctions = auctionRepository.findAll();
-            auctions = auctions.stream().filter(auction -> auctionFilters.getTitle() == null || auction.getTitle().toUpperCase().contains(auctionFilters.getTitle().toUpperCase()))
-                    .collect(Collectors.toList());
         }
-        for(Auction auction : auctions)
-        {
+
+        auctions = auctions
+                .stream()
+                .filter(auction -> auctionFilters.getTitle() == null || auction.getTitle().toUpperCase().contains(auctionFilters.getTitle().toUpperCase()))
+                .filter(auction -> auctionFilters.getCarMaker()== null || auction.getCarMake().toUpperCase().contains(auctionFilters.getCarMaker().toUpperCase()))
+                .filter(auction -> auctionFilters.getCarModel() == null || auction.getCarModel().toUpperCase().contains(auctionFilters.getCarModel().toUpperCase()))
+                .filter(auction -> auctionFilters.getColor() == null || auction.getColor().toUpperCase().contains(auctionFilters.getColor().toUpperCase()))
+                .collect(Collectors.toList());
+
+        for (Auction auction : auctions) {
             System.out.println(auction);
         }
         model.addAttribute("cars", auctions);

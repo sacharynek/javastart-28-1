@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
@@ -14,6 +15,10 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
 
     List<Auction> findAll(Sort sort);
+
+   // List<Auction> findAllWithPredicate(Predicate predicate);
+
+    List<Auction> findAll();
 
 
 }

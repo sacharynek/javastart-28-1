@@ -1,5 +1,6 @@
 package pl.javastart.sellegro.auction;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +26,20 @@ public class AuctionController {
         List<Auction> auctions;
 
         if (sort != null) {
-            auctions = auctionRepository.findAllOrderedBy(sort);
+
+            Sort columnSort = Sort.by(Sort.Direction.ASC, sort);
+
+            auctions = auctionRepository.findAll(columnSort);
+
         } else {
             auctions = auctionRepository.findAll();
             auctions = auctions.stream().filter(auction -> auctionFilters.getTitle() == null || auction.getTitle().toUpperCase().contains(auctionFilters.getTitle().toUpperCase()))
                     .collect(Collectors.toList());
         }
-
+        for(Auction auction : auctions)
+        {
+            System.out.println(auction);
+        }
         model.addAttribute("cars", auctions);
         model.addAttribute("filters", auctionFilters);
         return "auctions";

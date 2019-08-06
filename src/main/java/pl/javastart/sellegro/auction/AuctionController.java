@@ -1,5 +1,8 @@
 package pl.javastart.sellegro.auction;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +31,9 @@ public class AuctionController {
         if (sort != null) {
 
             Sort columnSort = Sort.by(Sort.Direction.ASC, sort);
+            Pageable page = PageRequest.of(0,1,columnSort);
 
-            auctions = auctionRepository.findAll(columnSort);
+            Page<Auction> auctionsPage = auctionRepository.findAll(page);
 
         } else{
             auctions = auctionRepository.findAll();
